@@ -72,7 +72,8 @@ public class LogicalDefinitionCreator {
 		return logDefAxs;
 	}
 	
-	private Collection<OWLAxiom> getLogicalDefinitionAxioms(Collection<RDFSClass> superOrEqClses, OWLClass targetCls, boolean isEquivalent) {
+	private Collection<OWLAxiom> getLogicalDefinitionAxioms(Collection<RDFSClass> superOrEqClses, OWLClass targetCls,
+			boolean isEquivalent) {
 		List<OWLAxiom> axList = new ArrayList<OWLAxiom>();
 		if (superOrEqClses == null) {
 			return axList;
@@ -80,14 +81,18 @@ public class LogicalDefinitionCreator {
 		for (RDFSClass superOrEqCls : superOrEqClses) {
 			if (superOrEqCls instanceof OWLIntersectionClass) {
 				OWLObjectIntersectionOf targetInt = getIntersection((OWLIntersectionClass) superOrEqCls);
-				OWLAxiom ax = null;
-				if (isEquivalent == true) {
-					ax = df.getOWLEquivalentClassesAxiom(targetCls, targetInt);
+
+				if (targetInt == null) {
+					log.warn("Invalid intersection for logical definition of " + targetCls + ". Will not export." );
 				} else {
-					ax = df.getOWLSubClassOfAxiom(targetCls, targetInt);
+					OWLAxiom ax = null;
+					if (isEquivalent == true) {
+						ax = df.getOWLEquivalentClassesAxiom(targetCls, targetInt);
+					} else {
+						ax = df.getOWLSubClassOfAxiom(targetCls, targetInt);
+					}
+					axList.add(ax);
 				}
-				axList.add(ax);
-				
 			}
 		}
 		return axList;
@@ -127,7 +132,9 @@ public class LogicalDefinitionCreator {
 			}
 		}
 		
-		return df.getOWLObjectIntersectionOf(targetOps);
+		boolean validIntersection = targetOps.size() >= 2;
+		
+		return validIntersection ? df.getOWLObjectIntersectionOf(targetOps) : null;
 	}
 	
 	private OWLClass getClassFiller(Object filler) {

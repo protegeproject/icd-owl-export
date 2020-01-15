@@ -95,21 +95,22 @@ public class ICD2OWLExporter {
 		ICDAPIModel icdapiModel = new ICDAPIModel(manager, targetOnt);
 
 		SystemUtilities.logSystemInfo();
-
+/*
 		exportOntology("ICD", sourceICDOnt, manager, icdapiModel, targetOnt, sourceICDTopClass, outputOWLFile);
-
-		// Adding missing logical definition filler titles
 		
+		log.info("Starting post-processing ..");
 		try {
-			log.info("Add missing titles for logical definition fillers ..");
-			MissingTitleAdder titleAdder = new MissingTitleAdder(targetOnt, manager, icdapiModel);
-			titleAdder.addMissingTitlesForLogDefFillers();
-		} catch (Exception e) {
-			log.warn("Error at adding missing logical definition titles", e);
+			ExportPostProcessor postProcessor = new ExportPostProcessor(targetOnt, manager, icdapiModel);
+			postProcessor.postprocess();
+		} catch (Throwable e) {
+			log.warn("Error at postprocessing", e);
 		}
-
+		log.info("Ended post-processing");
+*/
 		// Export ICTM, if it is present
 
+		log.info("Args size: " + args.length + " " + args);
+		
 		if (args.length == 5) {
 			OWLModel sourceICTMOnt = openOWLFile(args[3]);
 			if (sourceICTMOnt == null) {
