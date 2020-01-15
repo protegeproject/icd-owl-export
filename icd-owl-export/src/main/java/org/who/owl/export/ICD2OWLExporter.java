@@ -95,7 +95,7 @@ public class ICD2OWLExporter {
 		ICDAPIModel icdapiModel = new ICDAPIModel(manager, targetOnt);
 
 		SystemUtilities.logSystemInfo();
-/*
+
 		exportOntology("ICD", sourceICDOnt, manager, icdapiModel, targetOnt, sourceICDTopClass, outputOWLFile);
 		
 		log.info("Starting post-processing ..");
@@ -106,11 +106,9 @@ public class ICD2OWLExporter {
 			log.warn("Error at postprocessing", e);
 		}
 		log.info("Ended post-processing");
-*/
+
 		// Export ICTM, if it is present
 
-		log.info("Args size: " + args.length + " " + args);
-		
 		if (args.length == 5) {
 			OWLModel sourceICTMOnt = openOWLFile(args[3]);
 			if (sourceICTMOnt == null) {
