@@ -177,7 +177,7 @@ public class LogicalDefinitionCreator {
 
 	private org.semanticweb.owlapi.model.OWLIndividual getIndividual(OWLClass cls) {
 		Optional<OWLClassAssertionAxiom> axOpt = targetOnt.classAssertionAxioms(cls).findFirst();
-		if (axOpt.isEmpty()) {
+		if (axOpt.isPresent() == false) {
 			return null;
 		}
 		return axOpt.get().getIndividual();
