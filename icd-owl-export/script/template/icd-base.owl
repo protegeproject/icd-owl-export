@@ -1,0 +1,281 @@
+Prefix(:=<http://id.who.int/icd/schema/>)
+Prefix(owl:=<http://www.w3.org/2002/07/owl#>)
+Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)
+Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)
+Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)
+Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)
+
+
+Ontology(<http://who.int/icd>
+<http://who.int/releases/2019-04/icd>
+Annotation(:releaseDate "2019-04"@en)
+Annotation(:releaseId "2019-04"@en)
+Annotation(rdfs:comment "The International Classification of Diseases and Related Health Problems (ICD) is a tool for recording, reporting and grouping conditions and factors that influence health. It contains categories for diseases, health related conditions, and external causes of illness or death. The purpose of the ICD is to allow the systematic recording, analysis, interpretation and comparison of mortality and morbidity data collected in different countries or areas and at different times.
+
+Read more: https://www.who.int/classifications/icd/en/"@en)
+Annotation(owl:versionInfo "2019-04"@en)
+
+Declaration(ObjectProperty(:activitiesDescriptor))
+Declaration(ObjectProperty(:activityWhenInjured))
+Declaration(ObjectProperty(:anatomy))
+Declaration(ObjectProperty(:biologicalIndicator))
+Declaration(ObjectProperty(:causality))
+Declaration(ObjectProperty(:chemicalAgent))
+Declaration(ObjectProperty(:consciousnessMeasure))
+Declaration(ObjectProperty(:counterMeasureDescriptor))
+Declaration(ObjectProperty(:counterPartInCollision))
+Declaration(ObjectProperty(:course))
+Declaration(ObjectProperty(:customBurnScaleValue))
+Declaration(ObjectProperty(:diagnosisConfirmedBy))
+Declaration(ObjectProperty(:distribution))
+Declaration(ObjectProperty(:durationOfComa))
+Declaration(ObjectProperty(:etiology))
+Declaration(ObjectProperty(:externalCauseDimension))
+Declaration(ObjectProperty(:fractureSubtype))
+Declaration(ObjectProperty(:genomicAndChomosomalAnomaly))
+Declaration(ObjectProperty(:hasGCSEyeScore))
+Declaration(ObjectProperty(:hasGCSMotorScore))
+Declaration(ObjectProperty(:hasGCSScore))
+Declaration(ObjectProperty(:hasGCSVerbalScore))
+Declaration(ObjectProperty(:hasPupilReactionScore))
+Declaration(ObjectProperty(:hasSeverity))
+Declaration(ObjectProperty(:histopathology))
+Declaration(ObjectProperty(:infectiousAgent))
+Declaration(ObjectProperty(:injuryQualifier))
+Declaration(ObjectProperty(:intent))
+Declaration(ObjectProperty(:intentDescriptor))
+Declaration(ObjectProperty(:laterality))
+Declaration(ObjectProperty(:levelOfConsciousness))
+Declaration(ObjectProperty(:mechanismOfInjury))
+Declaration(ObjectProperty(:medication))
+Declaration(ObjectProperty(:modeOfTransport))
+Declaration(ObjectProperty(:objectOrSubstanceProducingInjury))
+Declaration(ObjectProperty(:placeOfOccurrence))
+Declaration(ObjectProperty(:placeOfOccurrenceDescriptor))
+Declaration(ObjectProperty(:postcoordinationAxis))
+Declaration(ObjectProperty(:regional))
+Declaration(ObjectProperty(:relational))
+Declaration(ObjectProperty(:serotype))
+Declaration(ObjectProperty(:settingOfEvent))
+Declaration(ObjectProperty(:specificAnatomy))
+Declaration(ObjectProperty(:substanceUse))
+Declaration(ObjectProperty(:temporalPatternAndOnset))
+Declaration(ObjectProperty(:temporality))
+Declaration(ObjectProperty(:timeInLife))
+Declaration(ObjectProperty(:topology))
+Declaration(ObjectProperty(:transportDimension))
+Declaration(ObjectProperty(:transportUserRoleOfInjuredPerson))
+Declaration(ObjectProperty(:typeOfInjury))
+Declaration(AnnotationProperty(:releaseDate))
+Declaration(AnnotationProperty(:releaseId))
+
+############################
+#   Object Properties
+############################
+
+# Object Property: :activitiesDescriptor (:activitiesDescriptor)
+
+SubObjectPropertyOf(:activitiesDescriptor :externalCauseDimension)
+
+# Object Property: :activityWhenInjured (:activityWhenInjured)
+
+SubObjectPropertyOf(:activityWhenInjured :externalCauseDimension)
+
+# Object Property: :anatomy (:anatomy)
+
+SubObjectPropertyOf(:anatomy :postcoordinationAxis)
+
+# Object Property: :biologicalIndicator (:biologicalIndicator)
+
+SubObjectPropertyOf(:biologicalIndicator :postcoordinationAxis)
+
+# Object Property: :causality (:causality)
+
+SubObjectPropertyOf(:causality :etiology)
+
+# Object Property: :chemicalAgent (:chemicalAgent)
+
+SubObjectPropertyOf(:chemicalAgent :etiology)
+
+# Object Property: :consciousnessMeasure (:consciousnessMeasure)
+
+SubObjectPropertyOf(:consciousnessMeasure :postcoordinationAxis)
+
+# Object Property: :counterMeasureDescriptor (:counterMeasureDescriptor)
+
+SubObjectPropertyOf(:counterMeasureDescriptor :externalCauseDimension)
+
+# Object Property: :counterPartInCollision (:counterPartInCollision)
+
+SubObjectPropertyOf(:counterPartInCollision :transportDimension)
+
+# Object Property: :course (:course)
+
+SubObjectPropertyOf(:course :temporality)
+
+# Object Property: :customBurnScaleValue (:customBurnScaleValue)
+
+SubObjectPropertyOf(:customBurnScaleValue :injuryQualifier)
+
+# Object Property: :diagnosisConfirmedBy (:diagnosisConfirmedBy)
+
+SubObjectPropertyOf(:diagnosisConfirmedBy :postcoordinationAxis)
+
+# Object Property: :distribution (:distribution)
+
+SubObjectPropertyOf(:distribution :topology)
+
+# Object Property: :durationOfComa (:durationOfComa)
+
+SubObjectPropertyOf(:durationOfComa :consciousnessMeasure)
+
+# Object Property: :etiology (:etiology)
+
+SubObjectPropertyOf(:etiology :postcoordinationAxis)
+
+# Object Property: :externalCauseDimension (:externalCauseDimension)
+
+SubObjectPropertyOf(:externalCauseDimension :postcoordinationAxis)
+
+# Object Property: :fractureSubtype (:fractureSubtype)
+
+SubObjectPropertyOf(:fractureSubtype :injuryQualifier)
+
+# Object Property: :genomicAndChomosomalAnomaly (:genomicAndChomosomalAnomaly)
+
+SubObjectPropertyOf(:genomicAndChomosomalAnomaly :biologicalIndicator)
+
+# Object Property: :hasGCSEyeScore (:hasGCSEyeScore)
+
+SubObjectPropertyOf(:hasGCSEyeScore :hasGCSScore)
+
+# Object Property: :hasGCSMotorScore (:hasGCSMotorScore)
+
+SubObjectPropertyOf(:hasGCSMotorScore :hasGCSScore)
+
+# Object Property: :hasGCSScore (:hasGCSScore)
+
+SubObjectPropertyOf(:hasGCSScore :levelOfConsciousness)
+
+# Object Property: :hasGCSVerbalScore (:hasGCSVerbalScore)
+
+SubObjectPropertyOf(:hasGCSVerbalScore :hasGCSScore)
+
+# Object Property: :hasPupilReactionScore (:hasPupilReactionScore)
+
+SubObjectPropertyOf(:hasPupilReactionScore :levelOfConsciousness)
+
+# Object Property: :hasSeverity (:hasSeverity)
+
+SubObjectPropertyOf(:hasSeverity :postcoordinationAxis)
+
+# Object Property: :histopathology (:histopathology)
+
+SubObjectPropertyOf(:histopathology :postcoordinationAxis)
+
+# Object Property: :infectiousAgent (:infectiousAgent)
+
+SubObjectPropertyOf(:infectiousAgent :etiology)
+
+# Object Property: :injuryQualifier (:injuryQualifier)
+
+SubObjectPropertyOf(:injuryQualifier :postcoordinationAxis)
+
+# Object Property: :intent (:intent)
+
+SubObjectPropertyOf(:intent :externalCauseDimension)
+
+# Object Property: :intentDescriptor (:intentDescriptor)
+
+SubObjectPropertyOf(:intentDescriptor :externalCauseDimension)
+
+# Object Property: :laterality (:laterality)
+
+SubObjectPropertyOf(:laterality :topology)
+
+# Object Property: :levelOfConsciousness (:levelOfConsciousness)
+
+SubObjectPropertyOf(:levelOfConsciousness :consciousnessMeasure)
+
+# Object Property: :mechanismOfInjury (:mechanismOfInjury)
+
+SubObjectPropertyOf(:mechanismOfInjury :externalCauseDimension)
+
+# Object Property: :medication (:medication)
+
+SubObjectPropertyOf(:medication :etiology)
+
+# Object Property: :modeOfTransport (:modeOfTransport)
+
+SubObjectPropertyOf(:modeOfTransport :transportDimension)
+
+# Object Property: :objectOrSubstanceProducingInjury (:objectOrSubstanceProducingInjury)
+
+SubObjectPropertyOf(:objectOrSubstanceProducingInjury :externalCauseDimension)
+
+# Object Property: :placeOfOccurrence (:placeOfOccurrence)
+
+SubObjectPropertyOf(:placeOfOccurrence :externalCauseDimension)
+
+# Object Property: :placeOfOccurrenceDescriptor (:placeOfOccurrenceDescriptor)
+
+SubObjectPropertyOf(:placeOfOccurrenceDescriptor :externalCauseDimension)
+
+# Object Property: :postcoordinationAxis (:postcoordinationAxis)
+
+SubObjectPropertyOf(:postcoordinationAxis owl:topObjectProperty)
+
+# Object Property: :regional (:regional)
+
+SubObjectPropertyOf(:regional :topology)
+
+# Object Property: :relational (:relational)
+
+SubObjectPropertyOf(:relational :topology)
+
+# Object Property: :serotype (:serotype)
+
+SubObjectPropertyOf(:serotype :biologicalIndicator)
+
+# Object Property: :settingOfEvent (:settingOfEvent)
+
+SubObjectPropertyOf(:settingOfEvent :transportDimension)
+
+# Object Property: :specificAnatomy (:specificAnatomy)
+
+SubObjectPropertyOf(:specificAnatomy :anatomy)
+
+# Object Property: :substanceUse (:substanceUse)
+
+SubObjectPropertyOf(:substanceUse :externalCauseDimension)
+
+# Object Property: :temporalPatternAndOnset (:temporalPatternAndOnset)
+
+SubObjectPropertyOf(:temporalPatternAndOnset :temporality)
+
+# Object Property: :temporality (:temporality)
+
+SubObjectPropertyOf(:temporality :postcoordinationAxis)
+
+# Object Property: :timeInLife (:timeInLife)
+
+SubObjectPropertyOf(:timeInLife :temporality)
+
+# Object Property: :topology (:topology)
+
+SubObjectPropertyOf(:topology :anatomy)
+
+# Object Property: :transportDimension (:transportDimension)
+
+SubObjectPropertyOf(:transportDimension :externalCauseDimension)
+
+# Object Property: :transportUserRoleOfInjuredPerson (:transportUserRoleOfInjuredPerson)
+
+SubObjectPropertyOf(:transportUserRoleOfInjuredPerson :transportDimension)
+
+# Object Property: :typeOfInjury (:typeOfInjury)
+
+SubObjectPropertyOf(:typeOfInjury :injuryQualifier)
+
+
+)
