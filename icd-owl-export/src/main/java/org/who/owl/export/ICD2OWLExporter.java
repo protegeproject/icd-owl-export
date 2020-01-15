@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -69,6 +70,8 @@ public class ICD2OWLExporter {
 					+ "(3) output OWL file " + "[Optional: (4) ICTM pprj and (5) ICTM top class to export]");
 			return;
 		}
+		
+		PropertyConfigurator.configure("log4j.properties");
 
 		String sourceICDPrjFile = args[0];
 
