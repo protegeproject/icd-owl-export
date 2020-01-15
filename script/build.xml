@@ -1,5 +1,5 @@
 <?xml version = "1.0" encoding = "utf-8"?>
-<project name = "Export ICD to OWL file" default = "run_export_to_owl">    
+<project name = "Export ICD to OWL file" default = "run">    
    <property file="export.properties"/>  
    <property name = "owl.path"         value = "edu.stanford.smi.protegex.owl"/>   
    <property name = "owl.plugin.path"  value = "${protege.home}/plugins/${owl.path}"/>
@@ -50,22 +50,9 @@
       <echo message="Use the -v option to ant to see what jars are missing."/>
       <fail message = "missing protege libraries"/>
     </target>
-      
-	
-	 <target name="run_export_to_owl" depends="checkProtegeLibsAndReport">
-	        <java 
-			fork="true" 
-	        	dir="." 
-	            	classname="edu.stanford.bmir.icd.utils.export.ExportOWLModel"
-                        maxmemory="${heap.size.max}">
-		      	<classpath refid = "project.classpath"/>	        	
-	 			<arg value="${pprj.file}"/>	
-	        	<arg value="${export.file}"/>	
-	        	<arg value="${export.type}"/>	
-	        </java>
-	 </target>
 
-	 <target name="run_export_branch_to_owl" depends="checkProtegeLibsAndReport">
+
+	 <target name="run" depends="checkProtegeLibsAndReport">
 		        <java 
 				fork="true" 
 		        	dir="." 
