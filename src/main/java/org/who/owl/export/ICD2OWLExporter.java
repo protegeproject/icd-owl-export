@@ -49,7 +49,7 @@ public class ICD2OWLExporter {
 	private Set<RDFSNamedClass> traversed = new HashSet<RDFSNamedClass>();
 	private Map<RDFSNamedClass, OWLClass> source2targetCls = new HashMap<RDFSNamedClass, OWLClass>();
 
-	private int importedClassesCount = 0;
+	private int exportedClassesCount = 0;
 	private boolean isICTM = false;
 
 	public ICD2OWLExporter(OWLModel sourceOnt, OWLOntologyManager manager, ICDAPIModel icdapiModel,
@@ -176,10 +176,10 @@ public class ICD2OWLExporter {
 			log.error("Error at adding class: " + sourceCls, t);
 		}
 
-		importedClassesCount++;
+		exportedClassesCount++;
 
-		if (importedClassesCount % 100 == 0) {
-			log.info("Imported " + importedClassesCount + " classes.\t Last imported class: " + sourceCls + " \t on "
+		if (exportedClassesCount % 100 == 0) {
+			log.info("Exported " + exportedClassesCount + " classes.\t Last imported class: " + sourceCls + " \t on "
 					+ new Date());
 		}
 	}
