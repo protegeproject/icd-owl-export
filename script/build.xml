@@ -69,7 +69,7 @@
 		        <java 
 				fork="true" 
 		        	dir="." 
-		            	classname="org.who.owl.export.ICD2OWLExporterL"
+		            	classname="org.who.owl.export.ICD2OWLExporter"
 	                        maxmemory="${heap.size.max}">
 			      	<classpath refid = "project.classpath"/>	        	
 		 			<arg value="${icd.pprj.file}"/>	
