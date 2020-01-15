@@ -12,5 +12,6 @@
     </manifest>
     <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
         <javaElement handleIdentifier="=icd-owl-export/src\/main\/java"/>
+        <javaElement handleIdentifier="=icd-owl-export/src\/main\/resources"/>
     </selectedElements>
 </jardesc>
