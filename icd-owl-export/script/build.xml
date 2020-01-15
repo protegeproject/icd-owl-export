@@ -59,7 +59,7 @@
 		            	classname="org.who.owl.export.ICD2OWLExporter"
 	                        maxmemory="${heap.size.max}">
 			      	<classpath refid = "project.classpath"/>
-		        	<jvmarg value="-Dlog4j.configurationFile=/srv/icat/icat-files/src/icd-owl-export/script/log4j.properties" />
+		        	<jvmarg value="-Dlog4j.configurationFile=/srv/icat/icat-files/src/icd-owl-export/script/log4j2.xml" />
 		 			<arg value="${icd.pprj.file}"/>	
 		        	<arg value="${icd.topclass}"/>	
 		        	<arg value="${output.owl.file}"/>	
