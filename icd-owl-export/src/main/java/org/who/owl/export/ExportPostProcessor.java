@@ -16,6 +16,7 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.search.Searcher;
+import org.semanticweb.owlapi.util.OWLEntityRemover;
 
 public class ExportPostProcessor {
 	
@@ -85,6 +86,19 @@ public class ExportPostProcessor {
 		}
 		
 		targetOnt.subClassAxiomsForSuperClass(icdCatCls).forEach(s -> moveToTop(icdCatCls, s.getSubClass()));
+		
+		deleteICDCategoriesClass(icdCatCls);
+	}
+	
+	private void deleteICDCategoriesClass(OWLClass icdCatCls) {
+		try {
+			OWLEntityRemover remover = new OWLEntityRemover(targetOnt);
+			icdCatCls.accept(remover);
+			manager.applyChanges(remover.getChanges());
+		}
+		catch (Exception e) {
+			log.warn("Error at deleting class " + icdCatCls.getIRI());
+		}
 	}
 	
 	
@@ -105,10 +119,9 @@ public class ExportPostProcessor {
 	}
 
 	
-	private void moveErrorClasses() {
-		targetOnt.subClassAxiomsForSuperClass(df.getOWLThing()).
-			filter(s -> s.getSubClass().isOWLClass()).
-			map(s -> s.getSubClass().asOWLClass()).
+	public void moveErrorClasses() {
+		targetOnt.classesInSignature().
+			filter(c -> c.isBuiltIn() == false).
 			filter(c -> hasNoTitle(c)).
 			forEach(e -> moveErrorCls(e));
 	}
