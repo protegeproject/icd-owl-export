@@ -7,6 +7,8 @@ public class ICDAPIConstants {
 	public static final String TARGET_ONT_NS = "http://id.who.int/icd/schema/";
 	public static final String SOURCE_ONT_NS = "http://who.int/icd#";
 	
+	public final static String ERROR_CLS = "http://who.int/icd#Z_RetiredClasses";
+	
 	public final static String TITLE = "http://www.w3.org/2004/02/skos/core#prefLabel";
 	public final static String DEFINITION = "http://www.w3.org/2004/02/skos/core#definition";
 	public final static String LONG_DEFINITION = "http://id.who.int/icd/schema/longDefinition";

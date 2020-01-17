@@ -23,7 +23,7 @@ public class ExportPostProcessor {
 	private final static Logger log = Logger.getLogger(ExportPostProcessor.class);
 	
 	public final static String ICD_CATEGORIES_CLS = "http://who.int/icd#ICDCategory";
-	public final static String ERROR_CLS = "http://who.int/icd#Z_ErrorClasses";
+	
 	
 	private OWLOntology targetOnt;
 	private OWLOntologyManager manager;
@@ -128,12 +128,12 @@ public class ExportPostProcessor {
 	
 	
 	private void moveErrorCls(OWLClass errorCls) {
-		OWLClass topErrorCls = df.getOWLClass(ERROR_CLS);
+		OWLClass topErrorCls = df.getOWLClass(ICDAPIConstants.ERROR_CLS);
 		try {
 			targetOnt.addAxiom(df.getOWLSubClassOfAxiom(errorCls, topErrorCls));
 			targetOnt.remove(df.getOWLSubClassOfAxiom(errorCls, df.getOWLThing()));
 		} catch (Exception e) {
-			log.warn("Error at moving error class " + errorCls + " under " + ERROR_CLS, e);
+			log.warn("Error at moving error class " + errorCls + " under " + ICDAPIConstants.ERROR_CLS, e);
 		}
 	}
 
