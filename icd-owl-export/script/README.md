@@ -8,6 +8,8 @@ To run the script:
 
 This OWL file contains the basic metadata about the ICD ontology. Edit the ontology metadata in this file, either in a text editor, or in an ontology editor, like Protege (http://protege.stanford.edu).
 
+This should be the output file configured in export.properties. The script will append the OWL content to this file.
+
 (3) Run the script via the command:
 
 ant run

@@ -70,7 +70,6 @@ public class ClassExporter {
 		addExclusions(cls);
 		
 		addIsObosolte(cls);
-		addICD10Code(cls);
 		
 		addLogicalDefinition(cls);
 		
@@ -160,15 +159,6 @@ public class ClassExporter {
 		addStringAnnotation(cls, icdapiModel.getLongDefProp(), cm.getLongDefinitionProperty());
 	}
 	
-	private void addICD10Code(OWLClass cls) {
-		String icd10code = (String) sourceCls.getPropertyValue(cm.getIcdCodeProperty());
-		
-		if (icd10code != null) {
-			OWLAnnotation ann = df.getOWLAnnotation(icdapiModel.getICD10CodeProp(), df.getOWLLiteral(icd10code));
-			OWLAnnotationAssertionAxiom annotationAssertionAxiom = df.getOWLAnnotationAssertionAxiom(cls.getIRI(), ann);
-			manager.addAxiom(targetOnt, annotationAssertionAxiom);
-		}
-	}
 	
 	private void addIsObosolte(OWLClass cls) {
 		RDFProperty isObsoleteProp = cm.getIsObsoleteProperty();
@@ -208,16 +198,23 @@ public class ClassExporter {
 		if (termInst == null) {
 			return;
 		}
-		addStringAnnotationFromTerm(cls, targetProp, sourceProp, termInst);
+		
+		if (isAppropriateTerm (termInst) == true) {
+			addStringAnnotationFromTerm(cls, targetProp, sourceProp, termInst);
+		}
 	}
 	
+
 	private void addStringAnnotationFromTerm(OWLClass cls, OWLAnnotationProperty targetProp, RDFProperty sourceProp, RDFResource termInst) {
 		String label = (String) termInst.getPropertyValue(cm.getLabelProperty());
 		if (label == null) {
 			return;
 		}
 		String lang = (String) termInst.getPropertyValue(cm.getLangProperty());
-		addStringAnnotation(cls, targetProp, label, lang);
+		
+		if (isAppropriateTerm (termInst) == true) {
+			addStringAnnotation(cls, targetProp, label, lang);
+		}
 	}
 		
 	//default language is en
@@ -277,6 +274,21 @@ public class ClassExporter {
 	
 	private void deprecateCls(OWLClass cls) {
 		addBooleanAnnotation(cls, df.getOWLAnnotationProperty(OWLRDFVocabulary.OWL_DEPRECATED.getIRI()), true);
+	}
+	
+	/**
+	 * Only terms with language "en" should be exported.
+	 * The rest of the translations will come from the translation tool.
+	 * 
+	 * @param termInst
+	 * @return
+	 */
+	private boolean isAppropriateTerm(RDFResource termInst) {
+		RDFProperty langProp = cm.getLangProperty();
+		
+		String lang = (String) termInst.getPropertyValue(langProp);
+		
+		return lang == null || "en".equals(lang);
 	}
 	
 }
