@@ -13,7 +13,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-import edu.stanford.bmir.whofic.WHOFICContentModelConstants;
 import edu.stanford.bmir.whofic.icd.ICDContentModel;
 import edu.stanford.smi.protegex.owl.model.OWLModel;
 import edu.stanford.smi.protegex.owl.model.RDFProperty;
@@ -144,7 +143,7 @@ public class ClassExporter {
 	}
 
 	private void addFullySpecifiedTitle(OWLClass cls) {
-		addStringAnnotation(cls, icdapiModel.getFullNameProp(), sourceOnt.getRDFProperty(WHOFICContentModelConstants.FULLY_SPECIFIED_NAME_PROP));
+		addStringAnnotation(cls, icdapiModel.getFullNameProp(), cm.getFullySpecifiedNameProperty());
 	}
 
 	private void addTitle(OWLClass cls) {
@@ -239,11 +238,11 @@ public class ClassExporter {
 
 	private void addReferenceAnnotationFromTerm(OWLClass cls, OWLAnnotationProperty targetProp, RDFProperty sourceProp,
 			RDFResource term) {
-		RDFProperty refCatProp = sourceOnt.getRDFProperty(WHOFICContentModelConstants.REFERENCED_CATEGORY_PROP);
+		RDFProperty refCatProp = cm.getReferencedCategoryProperty();
 		if (refCatProp == null) { //happens in ICTM
 			return;
 		}
-		RDFSNamedClass refCls = (RDFSNamedClass) term.getPropertyValue(sourceOnt.getRDFProperty(WHOFICContentModelConstants.REFERENCED_CATEGORY_PROP));
+		RDFSNamedClass refCls = (RDFSNamedClass) term.getPropertyValue(cm.getReferencedCategoryProperty());
 		if (refCls == null) {
 			return;
 		}
