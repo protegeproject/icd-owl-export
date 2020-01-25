@@ -106,6 +106,14 @@ public class ICD2OWLExporter {
 			log.warn("Error at postprocessing", e);
 		}
 		log.info("Ended post-processing");
+		
+		
+		log.info("Saving ontology..");
+		try {
+			manager.saveOntology(targetOnt, IRI.create(new File(outputOWLFile)));
+		} catch (OWLOntologyStorageException e) {
+			log.error("Error at saving ontology", e);
+		}
 
 		// Export ICTM, if it is present
 
