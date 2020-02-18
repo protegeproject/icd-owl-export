@@ -119,7 +119,7 @@ public class LogicalDefinitionCreator {
 			} else if (op instanceof OWLHasValue) {
 				RDFProperty prop = ((OWLHasValue) op).getOnProperty();
 				Object filler = ((OWLHasValue) op).getHasValue();
-				boolean isFixedScaleProp = ICDPostCoordinationMaps.isFixedScalePCProp(prop.getName());
+				boolean isFixedScaleProp = ICDContentModel.isFixedScalePCProp(prop.getName());
 				
 				org.semanticweb.owlapi.model.OWLIndividual targetFiller = getIndividualFiller(filler, isFixedScaleProp);
 				if (targetFiller != null) {
