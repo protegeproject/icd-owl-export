@@ -63,8 +63,6 @@
 		 			<arg value="${icd.pprj.file}"/>	
 		        	<arg value="${icd.topclass}"/>	
 		        	<arg value="${output.owl.file}"/>	
-		        	<arg value="${ictm.pprj.file}"/>	
-		        	<arg value="${ictm.topclass}"/>
 		        </java>
 		 </target>
 	
