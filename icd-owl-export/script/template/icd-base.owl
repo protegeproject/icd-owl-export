@@ -11,7 +11,7 @@ Annotation(:releaseId "beta"@en)
 Annotation(rdfs:comment "The WHO Family of International Classifications (WHO-FIC) comprises classifications that have been endorsed by the WHO to describe various aspects of health and the health system in a consistent manner. The purpose of the Family is to assist the development of reliable statistical systems at local, national and international levels, with the aim of improving health status and health care. The three WHO-FIC Reference Classifications are: The International Classification of Diseases and Health Related Problems (ICD), the International Classification of Functioning, Disability and Health (ICF), and the
 International Classification of Health Intervention (ICHI).
 
-This document is a simplified OWL 2 rendering of the WHO-FIC Foundation Component that include the ICD-11, ICHI, and ICF. This is work in progress, and it is being released for experimentation purposes only.
+This document is a simplified OWL 2 rendering of the WHO-FIC Foundation Component that includes the ICD-11, ICHI, and ICF. This is work in progress, and it is being released for experimentation purposes only.
 
 For more information, please contact icd@who.int."@en)
 
