@@ -9,6 +9,10 @@ public class ICDAPIConstants {
 	
 	public final static String ERROR_CLS = "http://who.int/icd#Z_RetiredClasses";
 	
+	public final static String RELEASE_DATE = TARGET_ONT_NS + "releaseDate";
+	public final static String RELEASE_ID = TARGET_ONT_NS + "releaseId";
+	public final static String RELEASE_ID_BETA = "beta";
+	
 	public final static String TITLE = "http://www.w3.org/2004/02/skos/core#prefLabel";
 	public final static String DEFINITION = "http://www.w3.org/2004/02/skos/core#definition";
 	public final static String LONG_DEFINITION = "http://id.who.int/icd/schema/longDefinition";
@@ -29,7 +33,6 @@ public class ICDAPIConstants {
 	
 	public final static String ICD10CODE = TARGET_ONT_NS + "icd10code";
 	
-	public final static String RELEASE_ID = TARGET_ONT_NS + "releaseId";
 	public final static String IS_OBSOLETE = TARGET_ONT_NS + "isObsolote";
 
 }

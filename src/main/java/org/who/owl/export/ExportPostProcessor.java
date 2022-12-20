@@ -45,8 +45,9 @@ public class ExportPostProcessor {
 		log.info("Post-process: Move erroneous classes under Error class");
 		moveErrorClasses();
 		
-		log.info("Post-process: Removing ICD Categories class");
-		removeICDCatClass();
+		//not needed for WHO-FIC
+		//log.info("Post-process: Removing ICD Categories class");
+		//removeICDCatClass();
 	}
 
 

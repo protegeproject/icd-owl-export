@@ -83,7 +83,7 @@ public class LogicalDefinitionCreator {
 				OWLObjectIntersectionOf targetInt = getIntersection((OWLIntersectionClass) superOrEqCls);
 
 				if (targetInt == null) {
-					log.warn("Invalid intersection for logical definition of " + targetCls + ". Will not export." );
+					log.warn("Invalid intersection for logical definition of " + targetCls + ". Will not export: " + superOrEqCls.getBrowserText() );
 				} else {
 					OWLAxiom ax = null;
 					if (isEquivalent == true) {
@@ -132,9 +132,9 @@ public class LogicalDefinitionCreator {
 			}
 		}
 		
-		boolean validIntersection = targetOps.size() >= 2;
+		//boolean validIntersection = targetOps.size() >= 2;
 		
-		return validIntersection ? df.getOWLObjectIntersectionOf(targetOps) : null;
+		return targetOps.size() == 0 ? null :  df.getOWLObjectIntersectionOf(targetOps);
 	}
 	
 	private OWLClass getClassFiller(Object filler) {
