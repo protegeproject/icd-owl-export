@@ -13,6 +13,9 @@ public class ICDAPIModel {
 	private OWLDataFactory df;
     private OWLOntology targetOnt;
 	
+    private OWLAnnotationProperty releaseDate;
+    private OWLAnnotationProperty releaseId;
+    
 	private OWLAnnotationProperty titleProp;
 	private OWLAnnotationProperty defProp;
 	private OWLAnnotationProperty longDefProp;
@@ -42,6 +45,9 @@ public class ICDAPIModel {
 	}
 
 	private void initModel() {
+		releaseDate = createAnnotationProperty(ICDAPIConstants.RELEASE_DATE);
+		releaseId = createAnnotationProperty(ICDAPIConstants.RELEASE_ID);
+		
 		titleProp = createAnnotationProperty(ICDAPIConstants.TITLE);
 		defProp = createAnnotationProperty(ICDAPIConstants.DEFINITION);
 		longDefProp = createAnnotationProperty(ICDAPIConstants.LONG_DEFINITION);
@@ -135,6 +141,14 @@ public class ICDAPIModel {
 	
 	public OWLAnnotationProperty getICD10CodeProp() {
 		return icd10codeProp;
+	}
+	
+	public OWLAnnotationProperty getReleaseDate() {
+		return releaseDate;
+	}
+	
+	public OWLAnnotationProperty getReleaseId() {
+		return releaseId;
 	}
 	
 	public OWLObjectProperty getPostCoordinationProp(String sourceProp) {

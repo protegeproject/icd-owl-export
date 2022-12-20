@@ -1,6 +1,7 @@
 package org.who.owl.export;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -12,6 +13,7 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -34,6 +36,8 @@ import edu.stanford.smi.protegex.owl.model.RDFSNamedClass;
 public class ICD2OWLExporter {
 
 	private final static Logger log = Logger.getLogger(ICD2OWLExporter.class);
+	
+	private static String TEMPLATE_FILE_PATH = "template/icd-base.owl";
 
 	private OWLModel sourceOnt;
 
@@ -67,7 +71,7 @@ public class ICD2OWLExporter {
 	public static void main(String[] args) {
 		if (args.length < 3) {
 			log.error("Requires 3 parameters: (1) ICD pprj or OWL file, " + "(2) top ICD class to export,  "
-					+ "(3) output OWL file " + "[Optional: (4) ICTM pprj and (5) ICTM top class to export]");
+					+ "(3) output OWL file ");
 			return;
 		}
 		
@@ -91,8 +95,11 @@ public class ICD2OWLExporter {
 
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 		OWLOntology targetOnt = initTargetOnt(manager, outputOWLFile);
-
+		
 		ICDAPIModel icdapiModel = new ICDAPIModel(manager, targetOnt);
+		
+		initTargetOntMetadata(manager,targetOnt, icdapiModel);
+
 
 		SystemUtilities.logSystemInfo();
 
@@ -106,7 +113,7 @@ public class ICD2OWLExporter {
 			log.warn("Error at postprocessing", e);
 		}
 		log.info("Ended post-processing");
-		
+
 		
 		log.info("Saving ontology..");
 		try {
@@ -115,26 +122,9 @@ public class ICD2OWLExporter {
 			log.error("Error at saving ontology", e);
 		}
 
-		// Export ICTM, if it is present
-
-		if (args.length == 5) {
-			OWLModel sourceICTMOnt = openOWLFile(args[3]);
-			if (sourceICTMOnt == null) {
-				log.error("Could not open ICTM project " + sourceICDPrjFile);
-				System.exit(1);
-			}
-
-			RDFSNamedClass sourceICTMTopClass = sourceICTMOnt.getRDFSNamedClass(args[4]);
-			if (sourceICTMTopClass == null) {
-				log.error("Could not find ICTM top class " + args[1]);
-				System.exit(1);
-			}
-
-			exportOntology("ICTM", sourceICTMOnt, manager, icdapiModel, targetOnt, sourceICTMTopClass, outputOWLFile);
-		}
-
 		log.info("\n===== End export at " + new Date());
 	}
+
 
 	private static void exportOntology(String ontShortName, OWLModel sourceOnt, OWLOntologyManager manager,
 			ICDAPIModel icdapiModel, OWLOntology targetOnt, RDFSNamedClass sourceTopClass, String outputOWLFile) {
@@ -186,9 +176,8 @@ public class ICD2OWLExporter {
 
 		exportedClassesCount++;
 
-		if (exportedClassesCount % 100 == 0) {
-			log.info("Exported " + exportedClassesCount + " classes.\t Last imported class: " + sourceCls + " \t on "
-					+ new Date());
+		if (exportedClassesCount % 1000 == 0) {
+			log.info("Exported " + exportedClassesCount + " classes.");
 		}
 	}
 
@@ -277,24 +266,52 @@ public class ICD2OWLExporter {
 		File outputOntFile = new File(outputOWLFile);
 		OWLOntology targetOnt = null;
 
-		if (outputOntFile.exists()) {
-			log.info("Loading existing ontology from " + outputOntFile.getAbsolutePath());
-			try {
-				targetOnt = manager.loadOntologyFromOntologyDocument(outputOntFile);
-			} catch (OWLOntologyCreationException e) {
-				log.error("Could not load target OWL ontology from " + outputOntFile.getAbsolutePath(), e);
-				e.printStackTrace();
-			}
-		} else {
-			try {
-				targetOnt = manager.createOntology(IRI.create(ICDAPIConstants.TARGET_ONT_NAME));
-			} catch (OWLOntologyCreationException e) {
-				log.error("Could not create target OWL ontology", e);
-				System.exit(1);
+		if (outputOntFile.exists() == true) { // target ont file already exists
+			log.info("Loading existing target ontology from " + outputOntFile.getAbsolutePath());
+			targetOnt = loadFromExistingFile(manager, outputOntFile);
+		} else { // target ont file does not exist, try to use template file
+			File templateOntFile = new File(TEMPLATE_FILE_PATH);
+			
+			if (templateOntFile.exists() == true) { // start with template ont file
+				log.info("Initializing target ontology with template from: " + templateOntFile.getAbsolutePath());
+				targetOnt = loadFromExistingFile(manager, templateOntFile);
+			} else { // template file does not exist, initialize empty target ont
+				try {
+					log.info("Creating new target ontology");
+					targetOnt = manager.createOntology(IRI.create(ICDAPIConstants.TARGET_ONT_NAME));
+				} catch (OWLOntologyCreationException e) {
+					log.error("Could not create target OWL ontology", e);
+					System.exit(1);
+				}
 			}
 		}
 
 		return targetOnt;
 	}
+	
+	private static OWLOntology loadFromExistingFile(OWLOntologyManager manager, File outputOntFile) {
+		OWLOntology targetOnt = null;
+		
+		try {
+			targetOnt = manager.loadOntologyFromOntologyDocument(outputOntFile);
+		} catch (OWLOntologyCreationException e) {
+			log.error("Could not load target OWL ontology from " + outputOntFile.getAbsolutePath(), e);
+		}
+		
+		return targetOnt;
+	}
 
+	private static void initTargetOntMetadata(OWLOntologyManager manager, OWLOntology targetOnt, ICDAPIModel icdapiModel) {
+		OWLDataFactory df = manager.getOWLDataFactory();
+		
+		//adding the release date
+		String dateStr = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+		
+		OWLAnnotation releaseDateAnn = df.getOWLAnnotation(icdapiModel.getReleaseDate(), df.getOWLLiteral(dateStr));
+		manager.applyChange(new AddOntologyAnnotation(targetOnt, releaseDateAnn));
+		
+		OWLAnnotation owlVersionAnn = df.getOWLAnnotation(df.getOWLVersionInfo(), df.getOWLLiteral(dateStr));
+		manager.applyChange(new AddOntologyAnnotation(targetOnt, owlVersionAnn));
+	}
+	
 }
