@@ -8,7 +8,7 @@ The icd-base.owl file contains the basic metadata about the WHO-FIC Foundation o
 
 Run the script via the command:
 
-ant run
+ ant run
 
 The output will be in the {output.owl.file} as configured in export.properties.
 
